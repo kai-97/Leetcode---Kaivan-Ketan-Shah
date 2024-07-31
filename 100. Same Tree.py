@@ -6,25 +6,10 @@
 #         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        # Intuition - Create traversals and compare
-        def preorder(node1, values):
-            if not node1:
-                values.append("N")
-                return
-            values.append(node1.val)
-            preorder(node1.left, values)
-            preorder(node1.right, values)
-        
-        values1, values2 = [], []
-
-        preorder(p, values1)
-        preorder(q, values2)
-
-        return values1 == values2
-
-        ## Other solution
-        # if not p and not q:
-        #     return True
-        # elif not p or not q:
-        #     return False
-        # return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        if not p and not q:
+            return True
+        if (not p and q) or (p and not q):
+            return False
+        if p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
