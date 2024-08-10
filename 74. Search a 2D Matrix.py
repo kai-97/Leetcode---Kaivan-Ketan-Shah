@@ -1,16 +1,29 @@
 class Solution:
-    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:        
+        start = 0
+        end = len(matrix)-1
+        index = 0
         
-        # 1st approach - Get row and col
-        for row in range(len(matrix)):
-            target_row = row
-            if target < matrix[row][0]:
-                target_row = row-1
+        while start <= end:
+            mid = (start + end)//2
+            if matrix[mid][0] <= target <= matrix[mid][-1]:
+                index = mid
                 break
+            if target > matrix[mid][0]:
+                start = mid + 1
+            elif target < matrix[mid][0]:
+                end = mid - 1
 
-        for value in matrix[target_row]:
-            if value == target:
+        row = matrix[index]
+        start = 0
+        end = len(row)-1
+        print(row)
+        while start <= end:
+            mid = (start+end)//2
+            if row[mid] == target:
                 return True
+            elif row[mid] < target:
+                start = mid+1
+            elif row[mid] > target:
+                end = mid-1
         return False
-    
-    # Note: Better solution available (Binary Search)
