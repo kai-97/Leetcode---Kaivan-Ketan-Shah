@@ -3,7 +3,7 @@ class Solution:
         start = 0
         end = len(matrix)-1
         index = 0
-        
+
         while start <= end:
             mid = (start + end)//2
             if matrix[mid][0] <= target <= matrix[mid][-1]:
@@ -17,7 +17,6 @@ class Solution:
         row = matrix[index]
         start = 0
         end = len(row)-1
-        print(row)
         while start <= end:
             mid = (start+end)//2
             if row[mid] == target:
