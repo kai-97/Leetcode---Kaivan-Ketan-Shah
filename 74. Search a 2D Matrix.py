@@ -1,28 +1,32 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:        
+        
+        if not matrix:
+            return False
+
+        # First Binary Search on the cols to get the row index
+        first_col = [row[0] for row in matrix]
         start = 0
-        end = len(matrix)-1
-        index = 0
-
+        end = len(first_col)-1
         while start <= end:
-            mid = (start + end)//2
-            if matrix[mid][0] <= target <= matrix[mid][-1]:
-                index = mid
-                break
-            if target > matrix[mid][0]:
-                start = mid + 1
-            elif target < matrix[mid][0]:
-                end = mid - 1
+            mid = (start+end)//2
+            if first_col[mid] == target:
+                return True
+            elif target < first_col[mid]:
+                end = mid-1
+            elif target > first_col[mid]:
+                start = mid+1
 
-        row = matrix[index]
+        # Second Binary Search on the selected row to check for number existence
+        row = matrix[end]
         start = 0
         end = len(row)-1
         while start <= end:
             mid = (start+end)//2
             if row[mid] == target:
                 return True
-            elif row[mid] < target:
-                start = mid+1
-            elif row[mid] > target:
-                end = mid-1
+            if target > row[mid]:
+                start = mid + 1
+            elif target < row[mid]:
+                end = mid - 1
         return False
