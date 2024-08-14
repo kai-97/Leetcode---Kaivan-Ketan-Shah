@@ -1,15 +1,15 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        res = []    
-        def dfs (open: int, close: int, s: str):
-            if open == close and (open + close)==2*n:
-                res.append(s)
+        res = []
+
+        def dfs(open, close, bracket_string):
+            if open == 0 and close == 0:
+                res.append(bracket_string)
                 return
-            if open < n:
-                dfs(open+1, close, s + "(")
-            if close < open:
-                dfs(open, close+1, s+")")
-
-        dfs(0, 0, "")
-
+            if close > 0 and close > open:
+                dfs(open, close-1, bracket_string+')')
+            if open > 0:
+                dfs(open-1, close, bracket_string+'(')
+        dfs(n, n, "")
         return res
+        
